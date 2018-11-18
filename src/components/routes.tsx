@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import NavContainer from "./Nav/NavContainer";
 import { fakeAuth } from "src/utils/FakeAuth";
 import NavLoggedIn from "./Nav/NavLoggedIn";
-import Home from "./Nav/Home";
+import Home from "./Home";
 
 const PrivateRoute = ({ component: Component, ...rest }: any) => (
   <Route
@@ -29,7 +29,12 @@ export const Routes = () => (
       <NavContainer />
       <Switch>
         <Route exact path="/" component={Home} />
-        <PrivateRoute path="/private" component={NavLoggedIn} />
+        <PrivateRoute
+          path="/private"
+          component={() => {
+            return <h1>Private Route</h1>;
+          }}
+        />
       </Switch>
     </div>
   </BrowserRouter>

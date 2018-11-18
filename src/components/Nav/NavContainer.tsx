@@ -12,6 +12,7 @@ import NavLoggedOut from "./NavLoggedOut";
 import { fakeAuth } from "src/utils/FakeAuth";
 // import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
+import NavLoggedIn from "./NavLoggedIn";
 
 interface Props {
   classes: any;
@@ -44,7 +45,9 @@ class NavContainer extends React.Component<Props, State> {
 
   handleLogin = () => {
     fakeAuth.authenticate((cb: any) => {
-      console.log(this.props);
+      this.setState({
+        isAuth: true
+      });
     });
   };
 
@@ -69,7 +72,11 @@ class NavContainer extends React.Component<Props, State> {
                 Private Route
               </Button>
             </Link>
-            <NavLoggedOut onClick={this.handleLogin} />
+            {!this.state.isAuth ? (
+              <NavLoggedOut onClick={this.handleLogin} />
+            ) : (
+              <NavLoggedIn />
+            )}
           </Toolbar>
         </AppBar>
       </div>
